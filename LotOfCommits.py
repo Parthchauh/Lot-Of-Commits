@@ -30,8 +30,8 @@ for i in range(10000):
     # Run git commands and handle errors
     commands = [
         ('git add .', 'err1'),
-        ('cd D:/TestGithubCommits && git commit -m "another yet commit"', 'err2'),
-        ('cd D:/TestGithubCommits && git push -u origin main', 'err3')
+        ('git commit -m "another yet commit"', 'err2'),
+        ('git push -u origin main', 'err3')
     ]
     for command, error_label in commands:
         try:
