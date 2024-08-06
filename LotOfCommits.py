@@ -19,23 +19,13 @@ for i in range(10000):
     print('sleep 5 sec')
 
     # Run git commands and handle errors
-    try:
-        result1 = subprocess.check_output(com1, shell=True, stderr=subprocess.STDOUT)
-        print(result1.decode())
-    except subprocess.CalledProcessError as e:
-        print('err1:', e.output.decode())
-        print(traceback.format_exc())
-
-    try:
-        result2 = subprocess.check_output(com2, shell=True, stderr=subprocess.STDOUT)
-        print(result2.decode())
-    except subprocess.CalledProcessError as e:
-        print('err2:', e.output.decode())
-        print(traceback.format_exc())
-
-    try:
-        result3 = subprocess.check_output(com3, shell=True, stderr=subprocess.STDOUT)
-        print(result3.decode())
-    except subprocess.CalledProcessError as e:
-        print('err3:', e.output.decode())
-        print(traceback.format_exc())
+    for command, error_label in [(com1, 'err1'), (com2, 'err2'), (com3, 'err3')]:
+        try:
+            result = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
+            print(f'{error_label} Output:\n{result.decode()}')
+        except subprocess.CalledProcessError as e:
+            print(f'{error_label} Error:\n{e.output.decode()}')
+            print(traceback.format_exc())
+        except Exception as e:
+            print(f'{error_label} Unexpected Error:\n{str(e)}')
+            print(traceback.format_exc())
